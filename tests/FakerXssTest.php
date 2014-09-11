@@ -1,22 +1,22 @@
 <?php
 
-namespace FakerXss\Tests;
+namespace FakerXss\tests;
 
-use FakerXss\Xss;
+use \FakerXss\Xss;
 
-class FakerXssProviderTest extends \PHPUnit_Framework_TestCase
+class FakerXssTest extends \PHPUnit_Framework_TestCase
 {
     public function testXss()
     {
-        $faker = \Faker\Factory::create();
-        $faker->addProvider(new Xss($faker));
+        $faker = Faker\Factory::create();
+        $faker->addProvider(new FakerXss\Xss($faker));
         $xss = $faker->xss;
         $this->assertEquals("<script>alert('XSS');</script>", $xss);
     }
 
     public function testXssCustom()
     {
-        $faker = \Faker\Factory::create();
+        $faker = Faker\Factory::create();
         $faker->addProvider(new Xss($faker));
         $xss = $faker->xss('Stoline');
         $this->assertEquals("<script>alert('Stoline');</script>", $xss);
